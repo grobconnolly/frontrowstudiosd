@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to Your Downtown San Diego Stay</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #1b4965;
+    --ocean: #3d7ea6;
+    --ocean-light: #5da2c7;
+    --sunset-coral: #e07856;
+    --sunset-gold: #e8a94d;
+    --sunset-pink: #d4697a;
+    --sand: #f5efe3;
+    --sand-warm: #ede4d3;
+    --sand-dark: #c4b9a6;
+    --palm: #5a8a5c;
+    --palm-light: #8ab88c;
+    --driftwood: #7a6e5f;
+    --driftwood-light: #b0a696;
+    --white-foam: #fbf9f5;
+    --ink: #1a2a35;
+  }
+ 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white-foam);
+    color: var(--ink);
+    line-height: 1.7;
+    font-weight: 400;
+  }
+ 
+  .hero {
+    position: relative;
+    min-height: 48vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(170deg, var(--ocean-deep) 0%, #23607e 35%, #2a7a9a 60%, var(--sunset-coral) 100%);
+    overflow: hidden;
+    padding: 60px 24px;
+  }
+ 
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 90%, rgba(232, 169, 77, 0.25) 0%, transparent 55%),
+      radial-gradient(ellipse at 70% 10%, rgba(27, 73, 101, 0.3) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.04) 0%, transparent 70%);
+  }
+ 
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(to top, var(--white-foam), transparent);
+  }
+ 
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 1s ease-out;
+  }
+ 
+  .hero-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--sunset-gold);
+    margin-bottom: 20px;
+  }
+ 
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.15);
+  }
+ 
+  .hero h1 em {
+    font-style: italic;
+    color: var(--sunset-gold);
+  }
+ 
+  .hero-sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+ 
+  .content {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+ 
+  .intro-note {
+    text-align: center;
+    padding: 32px 0 48px;
+    border-bottom: 1px solid var(--sand-dark);
+    margin-bottom: 48px;
+  }
+ 
+  .intro-note p {
+    font-size: 1.05rem;
+    color: var(--driftwood);
+    max-width: 520px;
+    margin: 0 auto;
+    font-weight: 300;
+  }
+ 
+  .group-label {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ocean);
+    text-align: center;
+    margin-bottom: 36px;
+    margin-top: 8px;
+    position: relative;
+  }
+ 
+  .group-label::before,
+  .group-label::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 28%;
+    height: 1px;
+    background: var(--sand-dark);
+  }
+  .group-label::before { left: 0; }
+  .group-label::after { right: 0; }
+ 
+  .group-divider {
+    border: none;
+    border-top: 1px solid var(--sand-dark);
+    margin: 52px 0 52px;
+  }
+ 
+  .section {
+    margin-bottom: 52px;
+  }
+ 
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+ 
+  .section-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+ 
+  .icon-parking  { background: linear-gradient(135deg, var(--ocean), var(--ocean-deep)); color: white; }
+  .icon-elevator { background: linear-gradient(135deg, var(--palm), #3a6a3c); color: white; }
+  .icon-key      { background: linear-gradient(135deg, var(--sunset-gold), #c89030); color: white; }
+  .icon-nav      { background: linear-gradient(135deg, var(--ocean-light), var(--ocean)); color: white; }
+  .icon-pool     { background: linear-gradient(135deg, #40b0d0, #2890b0); color: white; }
+  .icon-game     { background: linear-gradient(135deg, var(--sunset-pink), #b84e60); color: white; }
+  .icon-gym      { background: linear-gradient(135deg, var(--sunset-coral), #c06040); color: white; }
+  .icon-biz      { background: linear-gradient(135deg, var(--driftwood), #5a5040); color: white; }
+  .icon-stadium  { background: linear-gradient(135deg, #2c4a28, #1a3518); color: white; }
+  .icon-food     { background: linear-gradient(135deg, var(--sunset-gold), #c08a30); color: white; }
+ 
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: var(--ocean-deep);
+  }
+ 
+  .steps {
+    list-style: none;
+    position: relative;
+    padding-left: 32px;
+  }
+ 
+  .steps::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--sand-dark), transparent);
+    border-radius: 1px;
+  }
+ 
+  .steps li {
+    position: relative;
+    margin-bottom: 18px;
+    font-size: 0.98rem;
+    color: #3a3a38;
+    font-weight: 300;
+    padding-left: 4px;
+  }
+ 
+  .steps li:last-child { margin-bottom: 0; }
+ 
+  .steps li::before {
+    content: '';
+    position: absolute;
+    left: -29px;
+    top: 10px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--ocean-light);
+    background: var(--white-foam);
+  }
+ 
+  .steps li strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+ 
+  .highlight-box {
+    background: var(--sand);
+    border-left: 3px solid var(--sunset-coral);
+    padding: 14px 18px;
+    border-radius: 0 10px 10px 0;
+    margin: 12px 0;
+    font-size: 0.92rem;
+    color: #4a4540;
+  }
+ 
+  .highlight-box strong {
+    color: var(--sunset-coral);
+    font-weight: 600;
+  }
+ 
+  .highlight-box.ocean {
+    border-left-color: var(--ocean);
+  }
+  .highlight-box.ocean strong {
+    color: var(--ocean);
+  }
+ 
+  .highlight-box.palm {
+    border-left-color: var(--palm);
+  }
+  .highlight-box.palm strong {
+    color: var(--palm);
+  }
+ 
+  .highlight-box.gold {
+    border-left-color: var(--sunset-gold);
+  }
+  .highlight-box.gold strong {
+    color: #b88a28;
+  }
+ 
+  .badge {
+    display: inline-block;
+    background: var(--ocean-deep);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin: 0 2px;
+    vertical-align: middle;
+  }
+ 
+  .return-label {
+    font-size: 0.98rem;
+    color: #3a3a38;
+    font-weight: 300;
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+ 
+  .return-label strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+ 
+  /* Restaurant Cards */
+  .rec-card {
+    background: white;
+    border: 1px solid var(--sand-dark);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    transition: box-shadow 0.2s ease;
+  }
+ 
+  .rec-card:hover {
+    box-shadow: 0 4px 20px rgba(27, 73, 101, 0.08);
+  }
+ 
+  .rec-card:last-child {
+    margin-bottom: 0;
+  }
+ 
+  .rec-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ocean);
+    margin-bottom: 6px;
+  }
+ 
+  .rec-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--ocean-deep);
+    margin-bottom: 10px;
+  }
+ 
+  .rec-details {
+    font-size: 0.9rem;
+    color: var(--driftwood);
+    font-weight: 300;
+    line-height: 1.8;
+  }
+ 
+  .rec-details a {
+    color: var(--ocean);
+    text-decoration: none;
+    font-weight: 400;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+ 
+  .rec-details a:hover {
+    border-bottom-color: var(--ocean);
+  }
+ 
+  .rec-details .rec-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+ 
+  .rec-details .rec-row:last-child {
+    margin-bottom: 0;
+  }
+ 
+  .rec-icon-sm {
+    font-size: 0.85rem;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+ 
+  .rec-note {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--sand-dark);
+    font-size: 0.88rem;
+    color: var(--driftwood);
+    font-weight: 300;
+    font-style: italic;
+  }
+ 
+  .rec-note strong {
+    font-weight: 600;
+    font-style: normal;
+    color: var(--sunset-coral);
+  }
+ 
+  /* Padres callout */
+  .padres-card {
+    background: linear-gradient(135deg, var(--ocean-deep) 0%, #15394e 100%);
+    border-radius: 16px;
+    padding: 28px;
+    color: #e8e4dc;
+    position: relative;
+    overflow: hidden;
+  }
+ 
+  .padres-card::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(232,169,77,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+ 
+  .padres-card .padres-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sunset-gold);
+    margin-bottom: 10px;
+    position: relative;
+  }
+ 
+  .padres-card .padres-text {
+    font-size: 0.95rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.8);
+    position: relative;
+  }
+ 
+  .padres-card .padres-text strong {
+    color: #fff;
+    font-weight: 600;
+  }
+ 
+  .padres-card .padres-text a {
+    color: var(--sunset-gold);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+ 
+  .padres-card .padres-text a:hover {
+    border-bottom-color: var(--sunset-gold);
+  }
+ 
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 40px 24px;
+    border-top: 1px solid var(--sand-dark);
+    margin-top: 20px;
+  }
+ 
+  .footer p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--ocean);
+  }
+ 
+  .footer .contact {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-size: 0.88rem;
+    color: var(--driftwood-light);
+    margin-top: 12px;
+    font-weight: 300;
+  }
+ 
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+ 
+  @media (max-width: 480px) {
+    .hero { min-height: 38vh; padding: 48px 20px; }
+    .content { padding: 32px 20px 60px; }
+    .section-icon { width: 42px; height: 42px; font-size: 1.1rem; }
+    .section-title { font-size: 1.25rem; }
+    .steps { padding-left: 28px; }
+    .group-label::before, .group-label::after { width: 20%; }
+    .rec-card { padding: 20px; }
+    .padres-card { padding: 22px; }
+  }
+ 
+  @media print {
+    .hero { min-height: auto; padding: 40px 24px; }
+    .section { break-inside: avoid; }
+    .rec-card { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+ 
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">Your Home in Downtown San Diego</div>
+      <h1>Welcome to <em>Unit 318</em></h1>
+      <p class="hero-sub">Everything you need to get settled in</p>
+    </div>
+  </div>
+ 
+  <div class="content">
+ 
+    <div class="intro-note">
+      <p>We're so glad you're here. Below you'll find step-by-step directions from the parking garage to your front door, building amenities, and our favorite local spots. If you need anything at all, don't hesitate to reach out.</p>
+    </div>
+ 
+    <!-- ==================== CHECK-IN ==================== -->
+    <div class="group-label">Arrival &amp; Check-In</div>
+ 
+    <!-- Parking -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon icon-parking">🅿️</div>
+        <div class="section-title">Parking</div>
+      </div>
+      <ul class="steps">
+        <li>When you arrive, you'll see two parking garages. Enter the <strong>second</strong> garage — it's called <span class="badge">Tower Garage</span>.</li>
+        <li>Drive down the ramp and make <strong>two immediate right turns</strong>.</li>
+        <li>You'll see the elevator lobby on your <strong>left side</strong>, labeled <span class="badge">Tower Elevators B3–7</span>.</li>
+      </ul>
+      <div class="highlight-box">
+        <strong>Parking Note:</strong> Parking permits are limited. Complimentary parking is available for guests who stay 3 nights or more. Please contact Rob for details.
+      </div>
+    </div>
+ 
+    <!-- Getting Upstairs -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon icon-elevator">🛗</div>
+        <div class="section-title">Getting Upstairs</div>
+      </div>
+      <ul class="steps">
+        <li>Take the <strong>Tower Elevator</strong> up to <strong>Floor 3</strong>.</li>
+        <li>Exit the elevator and turn <strong>left</strong>.</li>
+        <li>Walk down the hallway, then make a <strong>right</strong>.</li>
+        <li><strong>Unit 318</strong> will be on the <strong>right-hand side</strong> of the hallway.</li>
+      </ul>
+    </div>
+ 
+    <!-- Getting Inside -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon icon-key">🔑</div>
+        <div class="section-title">Getting Inside</div>
+      </div>
+      <ul class="steps">
+        <li>At the door, you'll find a <strong>digital keypad lock box</strong>.</li>
+        <li>Enter the <strong>PIN code</strong> provided in your booking details to open the lock box.</li>
+        <li>Inside the lock box is a <strong>key fob</strong> — grab it and keep it with you during your stay.</li>
+      </ul>
+      <div class="highlight-box">
+        <strong>Important:</strong> The key fob is how you'll get in and out of the building, including all common areas and amenities. Always bring it with you!
+      </div>
+    </div>
+ 
+    <!-- ==================== NAVIGATING THE BUILDING ==================== -->
+    <hr class="group-divider">
+    <div class="group-label">Navigating the Building</div>
+ 
+    <!-- Main Elevator -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon icon-nav">🏢</div>
+        <div class="section-title">Main Elevator</div>
+      </div>
+      <ul class="steps">
+        <li>Walk <strong>right</strong> out of Unit 318.</li>
+        <li>Make your <strong>first left</strong>.</li>
+        <li>Follow that walkway to the <strong>Main Elevator</strong>.</li>
+      </ul>
+    </div>
+ 
+    <!-- Tower Elevator -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon icon-elevator">🛗</div>
+        <div class="section-title">Tower Elevator</div>
+      </div>
+      <ul class="steps">
+        <li>Walk out of Unit 318 and turn <strong>left</strong>.</li>
+        <li>Head down the hallway — you'll see a door on the <strong>left side</strong>. It's usually propped open.</li>
+        <li>If the door is closed, look for the <strong>door with no label</strong> — that's the one.</li>
+        <li>Go through it and you'll reach the <strong>Tower Elevator</strong>.</li>
+      </ul>
+    </div>
+ 
+    <!-- ==================== AMENITIES ==================== -->
+    <hr class="group-divider">
+    <div class="group-label">Amenities</div>
+ 
+    <!-- Main Pool -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon icon-pool">🏊</div>
+        <div class="section-title">Main Pool</div>
+      </div>
+      <ul class="steps">
+        <li>Head to the <strong>Tower Elevator</strong> and go to <strong>Floor 1</strong>.</li>
+        <li>Exit the elevator and turn <strong>left</strong>.</li>
+        <li>When you get outside, turn <strong>left</strong> again and follow the path.</li>
+        <li>You'll find the <strong>main pool</strong> ahead.</li>
+      </ul>
+      <div class="highlight-box palm">
+        <strong>Tip:</strong> Bring your key fob and grab beach towels from the cabinet in the unit. The pool area has showers and bathrooms available.
+      </div>
+    </div>
+ 
+    <!-- Arcade / Bowling / Game Room -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon icon-game">🎳</div>
+        <div class="section-title">Arcade, Bowling &amp; Game Room</div>
+      </div>
+      <ul class="steps">
+        <li>Head to the <strong>Main Elevator</strong> and take it to <strong>Floor 1</strong>.</li>
+        <li>Exit the elevator — the game room will be on your <strong>right side</strong>.</li>
+        <li>Remember to bring your <strong>key fob</strong>.</li>
+      </ul>
+      <div class="highlight-box gold">
+        <strong>Bonus:</strong> All the games are completely free to play!
+      </div>
+    </div>
+ 
+    <!-- Gym -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon icon-gym">💪</div>
+        <div class="section-title">Gym</div>
+      </div>
+      <ul class="steps">
+        <li>Head to the <strong>Tower Elevator</strong> and go to <strong>Floor 1</strong>.</li>
+        <li>Exit the elevator and turn <strong>left</strong>.</li>
+        <li>When you get outside, turn <strong>left</strong> — the gym will be <strong>right in front of you</strong>.</li>
+      </ul>
+    </div>
+ 
+    <!-- Business Center -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon icon-biz">💼</div>
+        <div class="section-title">Business Center</div>
+      </div>
+      <ul class="steps">
+        <li>Head to the <strong>Tower Elevator</strong> and go to <strong>Floor 1</strong>.</li>
+        <li>Exit the elevator and turn <strong>left</strong>.</li>
+        <li>When you get outside, turn <strong>right</strong> and walk past the gym.</li>
+        <li>Continue through the <strong>opening between the buildings</strong>.</li>
+        <li>When you reach the next building, you'll see a <strong>walkway inside</strong>. Head down that hallway.</li>
+        <li>The <strong>Business Center</strong> will be on the <strong>right</strong>.</li>
+      </ul>
+    </div>
+ 
+    <!-- ==================== PETCO PARK ==================== -->
+    <hr class="group-divider">
+    <div class="group-label">Getting to Petco Park</div>
+ 
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon icon-stadium">⚾</div>
+        <div class="section-title">Petco Park</div>
+      </div>
+      <ul class="steps">
+        <li>The fastest way to Petco Park is the <strong>stairs right next to Unit 318</strong>.</li>
+        <li>Head down the stairs and you're practically there!</li>
+      </ul>
+      <div class="highlight-box">
+        <strong>Heads up:</strong> The stairs are <strong>one-way only</strong> — you cannot use them to get back into the building.
+      </div>
+      <p class="return-label"><strong>Getting back inside:</strong></p>
+      <ul class="steps">
+        <li>Walk past <strong>Honey Hole</strong> (the card shop).</li>
+        <li>You'll see a <strong>glass door</strong> — use your key fob to open it.</li>
+        <li>This brings you to the <strong>Tower Elevator</strong>, and you're home.</li>
+      </ul>
+    </div>
+ 
+    <!-- ==================== PADRES TICKETS ==================== -->
+    <div class="section" style="margin-top: -16px;">
+      <div class="padres-card">
+        <div class="padres-label">⚾ &nbsp;Need Padres Tickets?</div>
+        <p class="padres-text">
+          My brother <strong>Eddie</strong> is a season ticket holder! Give him a call or text and he can hook you up — he'll either have tickets available or can use his season ticket membership to buy them for you.<br><br>
+          <span class="rec-icon-sm">📱</span>&nbsp; <a href="tel:6199333462">(619) 933-3462</a>
+        </p>
+      </div>
+    </div>
+ 
+    <!-- ==================== LOCAL FAVORITES ==================== -->
+    <hr class="group-divider">
+    <div class="group-label">Our Local Favorites</div>
+ 
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon icon-food">🍽️</div>
+        <div class="section-title">Places We Love</div>
+      </div>
+ 
+      <!-- Achilles Coffee -->
+      <div class="rec-card">
+        <div class="rec-label">☕ &nbsp;Favorite Coffee Shop</div>
+        <div class="rec-name">Achilles Coffee</div>
+        <div class="rec-details">
+          <div class="rec-row">
+            <span class="rec-icon-sm">📍</span>
+            <span>Right below us in the building — you can't miss it!</span>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Cowboy Star -->
+      <div class="rec-card">
+        <div class="rec-label">🥩 &nbsp;Favorite Steakhouse</div>
+        <div class="rec-name">Cowboy Star</div>
+        <div class="rec-details">
+          <div class="rec-row">
+            <span class="rec-icon-sm">📍</span>
+            <span>640 10th Ave, San Diego, CA 92101</span>
+          </div>
+          <div class="rec-row">
+            <span class="rec-icon-sm">📞</span>
+            <span><a href="tel:6194505880">(619) 450-5880</a></span>
+          </div>
+          <div class="rec-row">
+            <span class="rec-icon-sm">🌐</span>
+            <span><a href="https://cowboystarsd.com" target="_blank" rel="noopener">cowboystarsd.com</a></span>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Tacos El Franc -->
+      <div class="rec-card">
+        <div class="rec-label">🌮 &nbsp;Favorite Taco Shop</div>
+        <div class="rec-name">Tacos El Franc</div>
+        <div class="rec-details">
+          <div class="rec-row">
+            <span class="rec-icon-sm">📍</span>
+            <span>528 5th Ave, San Diego, CA</span>
+          </div>
+          <div class="rec-row">
+            <span class="rec-icon-sm">📞</span>
+            <span><a href="tel:6195734648">(619) 573-4648</a></span>
+          </div>
+          <div class="rec-row">
+            <span class="rec-icon-sm">🌐</span>
+            <span><a href="https://tacoselfranc.com" target="_blank" rel="noopener">tacoselfranc.com</a></span>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Mona Lisa -->
+      <div class="rec-card">
+        <div class="rec-label">🍕 &nbsp;Favorite Pizza</div>
+        <div class="rec-name">Mona Lisa</div>
+        <div class="rec-details">
+          <div class="rec-row">
+            <span class="rec-icon-sm">📍</span>
+            <span>2061 India St, San Diego, CA 92101</span>
+          </div>
+          <div class="rec-row">
+            <span class="rec-icon-sm">📞</span>
+            <span><a href="tel:6192344893">(619) 234-4893</a></span>
+          </div>
+          <div class="rec-row">
+            <span class="rec-icon-sm">🌐</span>
+            <span><a href="https://monalisalittleitaly.com" target="_blank" rel="noopener">monalisalittleitaly.com</a></span>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Neighborhood -->
+      <div class="rec-card">
+        <div class="rec-label">🍸 &nbsp;Favorite Bar</div>
+        <div class="rec-name">Neighborhood</div>
+        <div class="rec-details">
+          <div class="rec-row">
+            <span class="rec-icon-sm">📍</span>
+            <span>777 G St, San Diego, CA</span>
+          </div>
+          <div class="rec-row">
+            <span class="rec-icon-sm">📞</span>
+            <span><a href="tel:6194460002">(619) 446-0002</a></span>
+          </div>
+        </div>
+        <div class="rec-note">
+          <strong>Pro tip:</strong> There's a speakeasy hidden inside — walk to the bathroom and push on the kegs.<br>
+          <strong>Super secret pro tip:</strong> There's a speakeasy <em>inside</em> the speakeasy. We haven't even gotten into that one yet!
+        </div>
+      </div>
+ 
+    </div>
+ 
+    <div class="footer">
+      <p>Enjoy your stay in San Diego!</p>
+      <p class="contact">Questions? Message us anytime through the Airbnb app.</p>
+    </div>
+ 
+  </div>
+ 
+</body>
+</html>
