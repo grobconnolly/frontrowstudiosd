@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parking Pass Request — Front Row Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #1b4965;
+    --ocean: #3d7ea6;
+    --ocean-light: #5da2c7;
+    --sunset-coral: #e07856;
+    --sunset-gold: #e8a94d;
+    --sunset-pink: #d4697a;
+    --sand: #f5efe3;
+    --sand-warm: #ede4d3;
+    --sand-dark: #c4b9a6;
+    --palm: #5a8a5c;
+    --palm-light: #8ab88c;
+    --driftwood: #7a6e5f;
+    --driftwood-light: #b0a696;
+    --white-foam: #fbf9f5;
+    --ink: #1a2a35;
+    --error: #c44040;
+    --error-bg: #fdf0f0;
+    --success: #3a7a3c;
+    --success-bg: #f0faf0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white-foam);
+    color: var(--ink);
+    line-height: 1.7;
+    font-weight: 400;
+  }
+
+  .hero {
+    position: relative;
+    min-height: 32vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(170deg, var(--ocean-deep) 0%, #23607e 35%, #2a7a9a 60%, var(--sunset-coral) 100%);
+    overflow: hidden;
+    padding: 48px 24px;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 90%, rgba(232, 169, 77, 0.25) 0%, transparent 55%),
+      radial-gradient(ellipse at 70% 10%, rgba(27, 73, 101, 0.3) 0%, transparent 50%);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(to top, var(--white-foam), transparent);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 1s ease-out;
+  }
+
+  .hero-tag {
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--sunset-gold);
+    margin-bottom: 16px;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.15);
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--sunset-gold);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 300;
+  }
+
+  .back-link {
+    position: absolute;
+    top: 20px;
+    left: 24px;
+    z-index: 2;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: #fff; }
+
+  .content {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* Intro */
+  .intro-box {
+    background: var(--sand);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .intro-box .icon-big {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+  }
+
+  .intro-box p {
+    font-size: 1rem;
+    color: var(--driftwood);
+    font-weight: 300;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  .intro-box .free-badge {
+    display: inline-block;
+    background: var(--palm);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    padding: 5px 14px;
+    border-radius: 8px;
+    margin-bottom: 14px;
+  }
+
+  /* Form */
+  .form-section {
+    margin-bottom: 36px;
+  }
+
+  .form-section-label {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ocean);
+    margin-bottom: 20px;
+    position: relative;
+    text-align: center;
+  }
+
+  .form-section-label::before,
+  .form-section-label::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 26%;
+    height: 1px;
+    background: var(--sand-dark);
+  }
+  .form-section-label::before { left: 0; }
+  .form-section-label::after { right: 0; }
+
+  .form-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 0;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+    flex: 1;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ocean-deep);
+    margin-bottom: 7px;
+  }
+
+  .form-group label .req {
+    color: var(--sunset-coral);
+    margin-left: 2px;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--sand-dark);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--ink);
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .form-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a6e5f' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 38px;
+    cursor: pointer;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: var(--ocean);
+    box-shadow: 0 0 0 3px rgba(61, 126, 166, 0.12);
+  }
+
+  .form-group input.error,
+  .form-group select.error {
+    border-color: var(--error);
+    box-shadow: 0 0 0 3px rgba(196, 64, 64, 0.08);
+  }
+
+  .error-msg {
+    display: none;
+    font-size: 0.82rem;
+    color: var(--error);
+    margin-top: 6px;
+    font-weight: 400;
+  }
+
+  .error-msg.visible {
+    display: block;
+  }
+
+  /* Date error banner */
+  .date-error-banner {
+    display: none;
+    background: var(--error-bg);
+    border: 1.5px solid #e8b0b0;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 24px;
+    font-size: 0.9rem;
+    color: var(--error);
+    font-weight: 400;
+    text-align: center;
+  }
+
+  .date-error-banner.visible {
+    display: block;
+    animation: shake 0.4s ease;
+  }
+
+  /* Success message */
+  .success-banner {
+    display: none;
+    background: var(--success-bg);
+    border: 1.5px solid #a0d0a0;
+    border-radius: 16px;
+    padding: 36px 28px;
+    text-align: center;
+  }
+
+  .success-banner.visible {
+    display: block;
+    animation: fadeUp 0.5s ease-out;
+  }
+
+  .success-banner .icon-big { font-size: 2.4rem; margin-bottom: 14px; }
+  .success-banner h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--success);
+    margin-bottom: 10px;
+  }
+  .success-banner p {
+    font-size: 0.95rem;
+    color: var(--driftwood);
+    font-weight: 300;
+  }
+
+  /* Submit */
+  .submit-btn {
+    width: 100%;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, var(--ocean-deep), var(--ocean));
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+    margin-top: 8px;
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(27, 73, 101, 0.25);
+  }
+
+  .submit-btn:active {
+    transform: translateY(0);
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    border-top: 1px solid var(--sand-dark);
+    margin-top: 20px;
+  }
+
+  .footer p {
+    font-size: 0.85rem;
+    color: var(--driftwood-light);
+    font-weight: 300;
+  }
+
+  .footer a {
+    color: var(--ocean);
+    text-decoration: none;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+
+  @media (max-width: 480px) {
+    .hero { min-height: 26vh; padding: 44px 20px; }
+    .content { padding: 32px 20px 60px; }
+    .form-row { flex-direction: column; gap: 0; }
+    .intro-box { padding: 22px; }
+    .back-link { top: 14px; left: 16px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="hero">
+    <a href="index.html" class="back-link">← Back to Welcome Guide</a>
+    <div class="hero-content">
+      <div class="hero-tag">Front Row Studio · Unit 318</div>
+      <h1>Parking <em>Pass Request</em></h1>
+      <p class="hero-sub">Reserve your complimentary parking spot</p>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <div class="intro-box">
+      <div class="icon-big">🅿️</div>
+      <div class="free-badge">Free Parking</div>
+      <p>Complimentary parking is available for guests staying <strong>3 nights or more</strong>. Fill out the form below and we'll have your pass ready for you.</p>
+    </div>
+
+    <!-- Success State -->
+    <div class="success-banner" id="successBanner">
+      <div class="icon-big">✅</div>
+      <h3>Request Submitted!</h3>
+      <p>Your parking pass request has been sent. We'll get everything set up before your arrival. See you soon!</p>
+    </div>
+
+    <!-- Form -->
+    <form id="parkingForm" novalidate>
+
+      <div class="form-section">
+        <div class="form-section-label">Stay Dates</div>
+
+        <div class="date-error-banner" id="dateError">
+          Your stay must be <strong>3 nights or more</strong> to qualify for complimentary parking.
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="checkin">Check-in Date <span class="req">*</span></label>
+            <input type="date" id="checkin" required>
+            <div class="error-msg" id="checkinError">Please select a check-in date</div>
+          </div>
+          <div class="form-group">
+            <label for="checkout">Check-out Date <span class="req">*</span></label>
+            <input type="date" id="checkout" required>
+            <div class="error-msg" id="checkoutError">Please select a check-out date</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-label">Guest Information</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name <span class="req">*</span></label>
+            <input type="text" id="firstName" placeholder="First name" required>
+            <div class="error-msg" id="firstNameError">Required</div>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name <span class="req">*</span></label>
+            <input type="text" id="lastName" placeholder="Last name" required>
+            <div class="error-msg" id="lastNameError">Required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email <span class="req">*</span></label>
+          <input type="email" id="email" placeholder="your@email.com" required>
+          <div class="error-msg" id="emailError">Please enter a valid email</div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-label">Vehicle Details</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="carYear">Year <span class="req">*</span></label>
+            <select id="carYear" required>
+              <option value="">Select year</option>
+            </select>
+            <div class="error-msg" id="carYearError">Required</div>
+          </div>
+          <div class="form-group">
+            <label for="carMake">Make <span class="req">*</span></label>
+            <input type="text" id="carMake" placeholder="e.g. Toyota" required>
+            <div class="error-msg" id="carMakeError">Required</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="carModel">Model <span class="req">*</span></label>
+            <input type="text" id="carModel" placeholder="e.g. Camry" required>
+            <div class="error-msg" id="carModelError">Required</div>
+          </div>
+          <div class="form-group">
+            <label for="carColor">Color <span class="req">*</span></label>
+            <input type="text" id="carColor" placeholder="e.g. White" required>
+            <div class="error-msg" id="carColorError">Required</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="licensePlate">License Plate <span class="req">*</span></label>
+            <input type="text" id="licensePlate" placeholder="e.g. 7ABC123" required>
+            <div class="error-msg" id="licensePlateError">Required</div>
+          </div>
+          <div class="form-group">
+            <label for="plateState">State <span class="req">*</span></label>
+            <select id="plateState" required>
+              <option value="">Select state</option>
+            </select>
+            <div class="error-msg" id="plateStateError">Required</div>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">Submit Parking Pass Request</button>
+
+    </form>
+
+    <div class="footer">
+      <p>Questions? Message us on Airbnb or <a href="index.html">return to the welcome guide</a>.</p>
+    </div>
+
+  </div>
+
+<script>
+  // Populate car year dropdown (2026 down to 1980)
+  const yearSelect = document.getElementById('carYear');
+  for (let y = 2026; y >= 1980; y--) {
+    const opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = y;
+    yearSelect.appendChild(opt);
+  }
+
+  // Populate state dropdown
+  const states = [
+    'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA',
+    'KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ',
+    'NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT',
+    'VA','WA','WV','WI','WY','DC'
+  ];
+  const stateNames = {
+    AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',
+    CT:'Connecticut',DE:'Delaware',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',
+    IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',
+    ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',
+    MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',
+    NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',
+    OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',
+    TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',
+    WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming',DC:'Washington DC'
+  };
+  const stateSelect = document.getElementById('plateState');
+  states.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s;
+    opt.textContent = `${s} — ${stateNames[s]}`;
+    stateSelect.appendChild(opt);
+  });
+
+  // Set min date to today
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('checkin').setAttribute('min', today);
+  document.getElementById('checkout').setAttribute('min', today);
+
+  // When checkin changes, update checkout min
+  document.getElementById('checkin').addEventListener('change', function() {
+    const ci = this.value;
+    if (ci) {
+      document.getElementById('checkout').setAttribute('min', ci);
+      // If checkout is before new checkin, clear it
+      const co = document.getElementById('checkout').value;
+      if (co && co <= ci) {
+        document.getElementById('checkout').value = '';
+      }
+    }
+    validateDates();
+  });
+
+  document.getElementById('checkout').addEventListener('change', validateDates);
+
+  function validateDates() {
+    const ci = document.getElementById('checkin').value;
+    const co = document.getElementById('checkout').value;
+    const banner = document.getElementById('dateError');
+
+    if (ci && co) {
+      const checkinDate = new Date(ci);
+      const checkoutDate = new Date(co);
+      const diffTime = checkoutDate - checkinDate;
+      const diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+      if (diffDays < 3) {
+        banner.classList.add('visible');
+        document.getElementById('checkout').classList.add('error');
+        return false;
+      } else {
+        banner.classList.remove('visible');
+        document.getElementById('checkout').classList.remove('error');
+        return true;
+      }
+    }
+    banner.classList.remove('visible');
+    return true;
+  }
+
+  // Clear error styling on input
+  document.querySelectorAll('input, select').forEach(el => {
+    el.addEventListener('input', function() {
+      this.classList.remove('error');
+      const errEl = document.getElementById(this.id + 'Error');
+      if (errEl) errEl.classList.remove('visible');
+    });
+    el.addEventListener('change', function() {
+      this.classList.remove('error');
+      const errEl = document.getElementById(this.id + 'Error');
+      if (errEl) errEl.classList.remove('visible');
+    });
+  });
+
+  // Form submit
+  document.getElementById('parkingForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    let valid = true;
+
+    // Required field checks
+    const fields = [
+      'checkin', 'checkout', 'firstName', 'lastName', 'email',
+      'carYear', 'carMake', 'carModel', 'carColor', 'licensePlate', 'plateState'
+    ];
+
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      const errEl = document.getElementById(id + 'Error');
+      if (!el.value.trim()) {
+        el.classList.add('error');
+        if (errEl) errEl.classList.add('visible');
+        valid = false;
+      }
+    });
+
+    // Email validation
+    const emailEl = document.getElementById('email');
+    if (emailEl.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
+      emailEl.classList.add('error');
+      document.getElementById('emailError').classList.add('visible');
+      valid = false;
+    }
+
+    // Date validation (3-night minimum)
+    if (!validateDates()) {
+      valid = false;
+    }
+
+    if (!valid) {
+      // Scroll to first error
+      const firstErr = document.querySelector('.error, .date-error-banner.visible');
+      if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    // Build email
+    const data = {
+      checkin: document.getElementById('checkin').value,
+      checkout: document.getElementById('checkout').value,
+      firstName: document.getElementById('firstName').value.trim(),
+      lastName: document.getElementById('lastName').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      year: document.getElementById('carYear').value,
+      make: document.getElementById('carMake').value.trim(),
+      model: document.getElementById('carModel').value.trim(),
+      color: document.getElementById('carColor').value.trim(),
+      plate: document.getElementById('licensePlate').value.trim(),
+      state: document.getElementById('plateState').value
+    };
+
+    const ciFormatted = new Date(data.checkin + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+    const coFormatted = new Date(data.checkout + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+
+    const nights = Math.round((new Date(data.checkout) - new Date(data.checkin)) / (1000 * 60 * 60 * 24));
+
+    const subject = encodeURIComponent(`Parking Pass Request — ${data.firstName} ${data.lastName} — Unit 318`);
+    const body = encodeURIComponent(
+`Parking Pass Request — Front Row Studio, Unit 318
+
+GUEST INFORMATION
+Name: ${data.firstName} ${data.lastName}
+Email: ${data.email}
+
+STAY DATES
+Check-in: ${ciFormatted}
+Check-out: ${coFormatted}
+Nights: ${nights}
+
+VEHICLE DETAILS
+Year: ${data.year}
+Make: ${data.make}
+Model: ${data.model}
+Color: ${data.color}
+License Plate: ${data.plate}
+State: ${data.state}
+
+---
+Submitted via Front Row Studio Guest Portal`
+    );
+
+    // Open mailto
+    window.location.href = `mailto:info.park12@mgproperties.com?cc=connollypropsd@gmail.com&subject=${subject}&body=${body}`;
+
+    // Show success
+    document.getElementById('parkingForm').style.display = 'none';
+    document.querySelector('.intro-box').style.display = 'none';
+    document.getElementById('successBanner').classList.add('visible');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>

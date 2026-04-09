@@ -102,6 +102,34 @@
     color: rgba(255,255,255,0.75);
     font-weight: 300;
     letter-spacing: 0.02em;
+    margin-bottom: 24px;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 10px 22px;
+    border-radius: 10px;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .hero-cta:hover {
+    background: rgba(255,255,255,0.25);
+    transform: translateY(-1px);
+  }
+
+  .hero-cta .cta-icon {
+    font-size: 1rem;
   }
  
   .content {
@@ -502,6 +530,10 @@
       <div class="hero-tag">Your Home in Downtown San Diego</div>
       <h1>Welcome to <em>Unit 318</em></h1>
       <p class="hero-sub">Everything you need to get settled in</p>
+      <a href="parking-pass.html" class="hero-cta">
+        <span class="cta-icon">🅿️</span>
+        Request a Parking Pass
+      </a>
     </div>
   </div>
  
@@ -526,7 +558,7 @@
         <li>You'll see the elevator lobby on your <strong>left side</strong>, labeled <span class="badge">Tower Elevators B3–7</span>.</li>
       </ul>
       <div class="highlight-box">
-        <strong>Parking Note:</strong> Parking permits are limited. Complimentary parking is available for guests who stay 3 nights or more. Please contact Rob for details.
+        <strong>Parking Note:</strong> Complimentary parking is available for stays of 3 nights or more. <a href="parking-pass.html" style="color: var(--ocean); font-weight: 500; text-decoration: none; border-bottom: 1px solid var(--ocean);">Request your parking pass here →</a>
       </div>
     </div>
  
