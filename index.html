@@ -131,6 +131,37 @@
   .hero-cta .cta-icon {
     font-size: 1rem;
   }
+
+  .wifi-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 12px;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .wifi-card .wifi-icon {
+    font-size: 1.4rem;
+  }
+
+  .wifi-card .wifi-lines {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.85);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  .wifi-card .wifi-lines strong {
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
  
   .content {
     max-width: 680px;
@@ -530,10 +561,13 @@
       <div class="hero-tag">Your Home in Downtown San Diego</div>
       <h1>Welcome to <em>Unit 318</em></h1>
       <p class="hero-sub">Everything you need to get settled in</p>
-      <a href="parking-pass.html" class="hero-cta">
-        <span class="cta-icon">🅿️</span>
-        Request a Parking Pass
-      </a>
+      <div class="wifi-card">
+        <span class="wifi-icon">📶</span>
+        <div class="wifi-lines">
+          Network: <strong>Finlete.com</strong><br>
+          Password: <strong>6195362000</strong>
+        </div>
+      </div>
     </div>
   </div>
  
